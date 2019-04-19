@@ -26,7 +26,7 @@ export default class Mailer {
           subject: 'Confirm',
           to: email,
           html: `<p>Thanks for signing up! </p>
-                <p>You must follow this link to activate your account: <a href="http://127.0.0.1:7001/user/activity?userId=${userId}">http://127.0.0.1:7001/user/activity</a></p>`,
+                <p>You must follow this link to activate your account: <a href="http://127.0.0.1:7001/v1/users/activity?userId=${userId}">http://127.0.0.1:7001/v1/users/activity</a></p>`,
         },
         (err, _info) => {
           if (err) {
