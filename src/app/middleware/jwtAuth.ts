@@ -37,6 +37,7 @@ export class JwtAuth implements WebMiddleware {
         assert(token === redisToken, 'token已过期或者失效');
 
         ctx.header.userId = payload.userId;
+        ctx.header.role = payload.role;
       } catch (error) {
         this.logger.error('jwt验证失败：', error);
         throw new MyError('Unauthorized', 401);

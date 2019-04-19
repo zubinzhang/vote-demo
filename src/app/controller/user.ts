@@ -27,7 +27,7 @@ export class UserController {
   @config('jwt')
   jwtConfig;
 
-  @get('/', { middleware: ['jwtAuth'] })
+  @get('/', { middleware: ['jwtAuth', 'admin'] })
   async getAllUser(ctx: Context): Promise<void> {
     ctx.body = await this.userService.getAllUser();
   }
@@ -44,13 +44,13 @@ export class UserController {
     // 参数校验
     ctx.body = this.userValidator.login(ctx.request.body);
 
-    const userId = await this.userService.login({
+    const user = await this.userService.login({
       email: ctx.request.body.email,
       password: this.tool.hmac(ctx.request.body.password),
     });
 
-    const token = await this.tool.sign(userId);
-    ctx.body = { userId, accessToken: token };
+    const token = await this.tool.sign(user);
+    ctx.body = { userId: user.userId, accessToken: token };
   }
 
   /**
@@ -65,18 +65,19 @@ export class UserController {
     // 参数校验
     const param = this.userValidator.createUser(ctx.request.body);
 
-    const userId = await this.userService.createUser({
+    const user = await this.userService.createUser({
       name: param.userName,
       password: this.tool.hmac(param.password),
       email: param.email,
+      role: 2, // 普通用戶
       status: 1, // 待验证
     });
 
     // 发送验证链接
-    await this.mailer.sendMail({ email: param.email, userId });
+    await this.mailer.sendMail({ email: param.email, userId: user.userId });
 
-    const token = await this.tool.sign(userId);
-    ctx.body = { userId, accessToken: token };
+    const token = await this.tool.sign(user);
+    ctx.body = { userId: user.userId, accessToken: token };
   }
 
   /**

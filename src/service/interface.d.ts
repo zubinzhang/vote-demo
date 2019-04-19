@@ -5,13 +5,18 @@ export interface ILoginParam {
   password: string;
 }
 
+export interface IUserResult {
+  userId?: number;
+  role?: number;
+}
+
 /**
  * @description User-Service abstractions
  */
 export interface IUserService {
   getAllUser(): Promise<IUserAttribute[]>;
-  createUser(user: IUserAttribute): Promise<number>;
-  login(value: ILoginParam): Promise<number>;
+  createUser(user: IUserAttribute): Promise<IUserResult>;
+  login(value: ILoginParam): Promise<IUserResult>;
   checkUserActive(userId: number): Promise<void>;
   updateUser(values: IUserAttribute, userId: number): Promise<number>;
 }

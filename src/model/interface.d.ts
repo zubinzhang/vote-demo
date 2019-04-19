@@ -7,6 +7,7 @@ export interface IUserAttribute {
   name?: string;
   password?: string;
   email?: string;
+  role?: number;
   status?: number;
 }
 export interface IUserInstance extends Sequelize.Instance<IUserAttribute>, IUserAttribute {}

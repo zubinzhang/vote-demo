@@ -1,18 +1,10 @@
 import * as Joi from 'joi';
 import { provide } from 'midway';
 
-import MyError from '../../common/MyError';
+import Validator from './validator';
 
 @provide('voteValidator')
-export default class VoteValidator {
-  private validate(rule, schema: Joi.SchemaLike) {
-    const { error, value } = Joi.validate(rule, schema);
-    if (error) {
-      throw new MyError(error.message, 400);
-    }
-    return value;
-  }
-
+export default class VoteValidator extends Validator {
   getAllVotes(value: any) {
     return this.validate(value, {
       limit: Joi.number()

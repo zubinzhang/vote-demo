@@ -11,6 +11,6 @@ describe('/test/common/tool.test.ts', () => {
 
   it('#sign', async () => {
     const tool = await app.applicationContext.getAsync<Tool>('tools');
-    await tool.sign(1).catch(() => console.log);
+    await tool.sign({ userId: 1, role: 2 }).catch(() => console.log);
   });
 });

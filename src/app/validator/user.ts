@@ -1,18 +1,10 @@
 import * as Joi from 'joi';
 import { provide } from 'midway';
 
-import MyError from '../../common/MyError';
+import Validator from './validator';
 
 @provide('userValidator')
-export default class UserValidator {
-  private validate(rule, schema: Joi.SchemaLike) {
-    const { error, value } = Joi.validate(rule, schema);
-    if (error) {
-      throw new MyError(error.message, 400);
-    }
-    return value;
-  }
-
+export default class UserValidator extends Validator {
   /**
    * 新增用户
    *

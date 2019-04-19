@@ -34,7 +34,7 @@ export class VoteController {
    * @returns {Promise<void>}
    * @memberof VoteController
    */
-  @post('/', { middleware: ['jwtAuth'] })
+  @post('/', { middleware: ['jwtAuth', 'admin'] })
   async addVotes(ctx: Context): Promise<void> {
     const param = this.voteValidator.vote(ctx.request.body);
     ctx.body = await this.voteService.createVote(param);
@@ -73,19 +73,22 @@ export class VoteController {
    * @returns {Promise<void>}
    * @memberof VoteController
    */
-  @post('/:voteId/candidates', { middleware: ['jwtAuth'] })
+  @post('/:voteId/candidates', { middleware: ['jwtAuth', 'admin'] })
   async addCandidates(ctx: Context): Promise<void> {
-    const bodys: any[] = this.voteValidator.addCandidates(ctx.request.body);
+    const checkBodys: any[] = this.voteValidator.addCandidates(ctx.request.body);
     const param = this.voteValidator.voteId(ctx.params);
 
-    const candidateList = bodys.map(p => ({ name: p.name, voteId: param.voteId, votes: 0 }));
-    console.log(ctx.request.body, bodys, param, candidateList);
+    const candidateList = checkBodys.map(body => ({
+      name: body.name,
+      voteId: param.voteId,
+      votes: 0,
+    }));
 
     ctx.status = 201;
     ctx.body = await this.candidateService.addCandidates(candidateList);
   }
 
-  @del('/:voteId/candidates/:candidateId', { middleware: ['jwtAuth'] })
+  @del('/:voteId/candidates/:candidateId', { middleware: ['jwtAuth', 'admin'] })
   async delCandidates(ctx: Context): Promise<void> {
     const param = this.voteValidator.delCandidates(ctx.params);
     await this.candidateService.removeCandidate(param.candidateId);
