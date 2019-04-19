@@ -1,11 +1,8 @@
 # vote-demo
 
-[![build status][travis-image]][travis-url]
 [![Test coverage][codecov-image]][codecov-url]
 [![David deps][david-image]][david-url]
 
-[travis-image]: https://img.shields.io/travis/zubincheung/vote-demo.svg?style=flat-square
-[travis-url]: https://travis-ci.org/zubincheung/vote-demo
 [codecov-image]: https://img.shields.io/codecov/c/github/zubincheung/vote-demo.svg?style=flat-square
 [codecov-url]: https://codecov.io/github/zubincheung/vote-demo?branch=master
 [david-image]: https://img.shields.io/david/zubincheung/vote-demo.svg?style=flat-square
