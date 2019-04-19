@@ -60,7 +60,7 @@ CREATE TABLE IF
 	KEY `ix_email` ( `email` )
 ) ENGINE = INNODB DEFAULT CHARSET = utf8 COMMENT = '用户表';
 
-INSERT INTO `user` VALUES(DEFAULT,"admin","5eeeb748d337e2ec5a33b8f5840e6c3c","admin@qq.com",3,1);
+INSERT INTO `user` VALUES(DEFAULT,"admin","5eeeb748d337e2ec5a33b8f5840e6c3c","admin@qq.com",2,1);
 
 -- ----------------------------
 -- Table structure for vote

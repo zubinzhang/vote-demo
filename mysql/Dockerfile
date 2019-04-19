@@ -1,8 +1,6 @@
 
 FROM mysql:8
 
-
-#定义工作目录
 ENV WORK_PATH /usr/local/
 
 #定义容器自动执行的目录
