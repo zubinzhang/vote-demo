@@ -1,0 +1,63 @@
+{
+  "name": "vote-demo",
+  "version": "1.0.0",
+  "description": "选举投系统demo",
+  "private": true,
+  "dependencies": {
+    "egg-jwt": "^3.1.6",
+    "egg-redis": "^2.3.1",
+    "egg-scripts": "^2.11.0",
+    "egg-sequelize": "^4.3.1",
+    "joi": "^14.3.1",
+    "midway": "^1.5.1",
+    "moment": "^2.24.0",
+    "mysql2": "^1.6.5",
+    "nodemailer": "^6.1.0",
+    "power-assert": "^1.6.1"
+  },
+  "devDependencies": {
+    "@types/joi": "^14.3.2",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^10.14.4",
+    "@types/nodemailer": "^4.6.7",
+    "egg-ci": "^1.11.0",
+    "egg-ts-helper": "^1.25.2",
+    "midway-bin": "1",
+    "midway-mock": "1",
+    "ts-node": "^8.1.0",
+    "tslib": "^1.9.3",
+    "tslint": "^5.15.0",
+    "tslint-midway-contrib": "1",
+    "typescript": "^3.4.3"
+  },
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "keywords": [
+    "err",
+    "midway",
+    "vote-demo"
+  ],
+  "scripts": {
+    "start": "egg-scripts start --title=egg-server-vote-demo --framework=midway",
+    "start_daemon": "egg-scripts start --daemon --title=egg-server-vote-demo --framework=midway",
+    "stop": "egg-scripts stop --title=egg-server-vote-demo",
+    "start_build": "npm run build && NODE_ENV=development midway-bin dev",
+    "dev": "NODE_ENV=local midway-bin dev --ts",
+    "debug": "NODE_ENV=local midway-bin debug --ts ",
+    "test": "midway-bin test --ts",
+    "cov": "midway-bin cov --ts",
+    "lint": "tslint -c tslint.json --project .",
+    "ci": "npm run cov",
+    "build": "midway-bin build -c"
+  },
+  "ci": {
+    "version": "8, 10"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Zubin",
+  "license": "MIT"
+}
