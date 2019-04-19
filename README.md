@@ -1,13 +1,5 @@
 # vote-demo
 
-[![Test coverage][codecov-image]][codecov-url]
-[![David deps][david-image]][david-url]
-
-[codecov-image]: https://img.shields.io/codecov/c/github/zubincheung/vote-demo.svg?style=flat-square
-[codecov-url]: https://codecov.io/github/zubincheung/vote-demo?branch=master
-[david-image]: https://img.shields.io/david/zubincheung/vote-demo.svg?style=flat-square
-[david-url]: https://david-dm.org/zubincheung/vote-demo
-
 基于[midway][midway],Mysql 和 Redis 的简单投票系统。
 
 ### API
