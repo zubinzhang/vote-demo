@@ -4,7 +4,7 @@ import { inject, provide } from 'midway';
 import MyError from '../common/MyError';
 import { IUserAttribute, IUserModel } from '../model/interface';
 import { Tool } from './../common/tool';
-import { ILoginParam, IUserService } from './interface';
+import { ILoginParam, IUserResult, IUserService } from './interface';
 
 @provide('userService')
 export class UserService implements IUserService {
@@ -25,7 +25,7 @@ export class UserService implements IUserService {
    * @returns {Promise<IUserAttribute>}
    * @memberof UserService
    */
-  async createUser(user: IUserAttribute): Promise<number> {
+  async createUser(user: IUserAttribute): Promise<IUserResult> {
     const userInfo = await this.userModel.findOne({
       raw: true,
       where: { email: user.email },
@@ -34,7 +34,7 @@ export class UserService implements IUserService {
     assert(userInfo === null, new MyError('Email existed', 401));
 
     const result = await this.userModel.create(user, { raw: true });
-    return result.id;
+    return { userId: result.id, role: result.role };
   }
 
   /**
@@ -45,13 +45,13 @@ export class UserService implements IUserService {
    * @returns {Promise<number>}
    * @memberof UserService
    */
-  async login(value: ILoginParam): Promise<number> {
+  async login(value: ILoginParam): Promise<IUserResult> {
     const user = await this.userModel.findOne({
       raw: true,
       where: value,
     });
     assert(user !== null, new MyError('Incorrect email or password', 401));
-    return user.id;
+    return { userId: user.id, role: user.role };
   }
 
   /**

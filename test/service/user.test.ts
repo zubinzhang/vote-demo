@@ -26,13 +26,13 @@ describe('/test/service/user.test.ts', () => {
     const data = await userService.createUser({
       name: 'zubin',
       password: tool.hmac('123456'),
-      email: 'test@qq.com',
+      email: 'testemail@qq.com',
+      role: 2,
       status: 1,
     });
-    assert(!Number.isNaN(data));
-    assert(data > 0);
+    assert(data !== null);
 
-    id = data;
+    id = data.userId;
   });
 
   it('#getAllUser', async () => {
@@ -46,8 +46,7 @@ describe('/test/service/user.test.ts', () => {
       password: tool.hmac('123456'),
       email: 'test@qq.com',
     });
-    assert(!Number.isNaN(data));
-    assert(data > 0);
+    assert(data !== null);
   });
 
   it('#checkUserActive', async () => {

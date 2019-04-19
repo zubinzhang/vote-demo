@@ -35,6 +35,10 @@ export default async function setupModel(context: IApplicationContext) {
         type: INTEGER(128),
         allowNull: false,
       },
+      role: {
+        type: INTEGER(1),
+        allowNull: false,
+      },
       status: {
         type: INTEGER(1),
         allowNull: false,
