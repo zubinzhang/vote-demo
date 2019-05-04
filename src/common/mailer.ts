@@ -7,6 +7,9 @@ export default class Mailer {
   @config('mailer')
   mailerConfig;
 
+  @config('activeConfig')
+  activeConfig;
+
   @logger()
   logger: Logger;
 
@@ -26,7 +29,11 @@ export default class Mailer {
           subject: 'Confirm',
           to: email,
           html: `<p>Thanks for signing up! </p>
-                <p>You must follow this link to activate your account: <a href="http://127.0.0.1:7001/v1/users/activity?userId=${userId}">http://127.0.0.1:7001/v1/users/activity</a></p>`,
+                <p>You must follow this link to activate your account: <a href="${
+                  this.activeConfig.url
+                }/v1/users/activity?userId=${userId}">${
+            this.activeConfig.url
+          }/v1/users/activity</a></p>`,
         },
         (err, _info) => {
           if (err) {

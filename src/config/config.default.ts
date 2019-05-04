@@ -28,6 +28,11 @@ export = (appInfo: any) => {
     },
   };
 
+  // 邮件激活地址
+  config.activeConfig = {
+    url: 'http://127.0.0.1:7001',
+  };
+
   config.sequelize = {
     dialect: 'mysql',
     host: 'localhost',

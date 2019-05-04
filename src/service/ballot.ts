@@ -96,6 +96,15 @@ export default class BallotService implements IBallotService {
       );
       await Promise.all(tasks);
 
+      await this.redis.set(
+        `ballot:${value.voteId}:userId:${value.userId}`,
+        moment().format('YYYY-MM-DD HH:mm:ss'),
+        'EX',
+        moment(voteInfo.endDate).diff(moment().subtract(1, 'days'), 'seconds') +
+          1000 +
+          Math.random() // 到投票截止一天后日期过期
+      );
+
       await trans.commit();
     } catch (error) {
       this.logger.error('投票失败：', error);
@@ -103,11 +112,6 @@ export default class BallotService implements IBallotService {
       await this.redis.del(`ballot:${value.voteId}:userId:${value.userId}`);
       throw new Error('投票失败');
     }
-
-    await this.redis.set(
-      `ballot:${value.voteId}:userId:${value.userId}`,
-      moment().format('YYYY-MM-DD HH:mm:ss')
-    );
   }
 
   /**
