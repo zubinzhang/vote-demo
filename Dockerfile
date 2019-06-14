@@ -1,4 +1,5 @@
-FROM registry.cn-hangzhou.aliyuncs.com/aliyun-node/alinode:4-alpine
+# Install Stage
+FROM registry.cn-hangzhou.aliyuncs.com/aliyun-node/alinode:4-alpine AS installer
 
 # Install base packages, set timezone
 RUN apk update && apk add curl bash tree tzdata \
@@ -9,14 +10,22 @@ RUN apk update && apk add curl bash tree tzdata \
 WORKDIR /var/app
 
 ENV NODE_ENV production
-ENV TZ Asia/Shanghai
 
-COPY package.json package-lock.json /var/app/
+COPY package.json package-lock.json ./
 RUN npm install --production \
   && rm -rf /tmp/* \
   && rm -rf /root/.npm/ \
   && apk del make gcc g++ python
 
-COPY . /var/app/
+COPY . .
+
+# Run stage
+
+FROM registry.cn-hangzhou.aliyuncs.com/aliyun-node/alinode:4-alpine
+WORKDIR /var/app
+COPY --from=installer /var/app/ .
+
+ENV TZ=Asia/Shanghai \
+    NODE_ENV=production
 
 CMD npm run start

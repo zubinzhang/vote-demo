@@ -1,16 +1,17 @@
 sudo: false
 language: node_js
 node_js:
-  - '8'
   - '10'
-env:
-  - NODE_ENV=develop
+branches:
+  only:
+  - master
+services:
+- docker
 install:
-  - npm i npminstall && npminstall
+  - npm install
+before_script:
+- docker-compose -f docker-compose-travis.yml up -d --exit-code-from
 script:
   - npm run ci
 after_script:
   - npminstall codecov && codecov
-services:
-  - redis
-  - mysql
